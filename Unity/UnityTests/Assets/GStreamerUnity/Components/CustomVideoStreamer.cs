@@ -5,7 +5,7 @@ using System.Threading;
 
 public class CustomVideoStreamer : MonoBehaviour,IDependencyNode {
 
-	public CameraCapture camCap;
+	public CameraCaptureSink camCaptureSink;
 	public string Pipeline;
 
 	public int fps=30;
@@ -16,9 +16,9 @@ public class CustomVideoStreamer : MonoBehaviour,IDependencyNode {
 	public void OnDependencyStart(DependencyRoot root)
 	{
 		Debug.Log ("node start");
-		_streamer.SetGrabber (camCap._grabber);
+		_streamer.SetGrabber (camCaptureSink._grabber);
 		_streamer.SetPipelineString (Pipeline);
-		_streamer.SetResolution(camCap.Width,camCap.Height,fps);
+		_streamer.SetResolution(camCaptureSink.Width,camCaptureSink.Height,fps);
 	}
 	public void OnDependencyDestroyed(DependencyRoot root)
 	{
@@ -46,7 +46,7 @@ public class CustomVideoStreamer : MonoBehaviour,IDependencyNode {
 
 		_streamer = new GstCustomVideoStreamer ();
 
-		camCap.AddDependencyNode (this);
+		camCaptureSink.AddDependencyNode (this);
 	}
 
 	void OnDestroy()
@@ -56,7 +56,7 @@ public class CustomVideoStreamer : MonoBehaviour,IDependencyNode {
 	// Update is called once per frame
 	void Update () {
 
-		if (!_created && camCap._grabber!=null && camCap.HasData) {
+		if (!_created && camCaptureSink._grabber!=null/* && camCaptureSink.HasData*/) {
 
 			//important to create stream after data is confirmed
 			_streamer.CreateStream ();

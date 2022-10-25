@@ -8,7 +8,7 @@ public class CameraCapture : DependencyRoot
 	[SerializeField] int _height = 720;
 	[SerializeField] bool _allowSlowDown = true;
 
-	public GstUnityImageGrabber _grabber;
+	//public GstUnityImageGrabber _grabber;
 
 	[SerializeField, HideInInspector] Shader _shader;
 	Material _material;
@@ -53,14 +53,14 @@ public class CameraCapture : DependencyRoot
 	protected override void OnDestroy()
 	{
 		base.OnDestroy();
-		_grabber.Destroy();
+		//_grabber.Destroy();
 		DestroyTexture ();
 	}
 
 	protected override void Start()
 	{
 //		_material = new Material(_shader);
-		_grabber=new GstUnityImageGrabber();
+		//_grabber=new GstUnityImageGrabber();
 		/*_width = Screen.width;
 		_height = Screen.height;*/
 
@@ -83,8 +83,8 @@ public class CameraCapture : DependencyRoot
 			}
 			_tempTex.ReadPixels(new Rect(0, 0, Width, Height), 0, 0, false);
 			_tempTex.Apply();
-			_grabber.SetTexture2D (_tempTex);
-			_grabber.Update ();
+			//_grabber.SetTexture2D (_tempTex);
+			//_grabber.Update ();
 			HasData = true;
 			//_pipe.Write(tempTex.GetRawTextureData());
 

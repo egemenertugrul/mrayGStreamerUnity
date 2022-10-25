@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Runtime.InteropServices;
+using System;
 
 public class GstCustomVideoStreamer:IGstStreamer {
 	
@@ -14,7 +15,12 @@ public class GstCustomVideoStreamer:IGstStreamer {
 	[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
 	extern static private int mray_gst_customImageStreamerSetGrabber(System.IntPtr p,System.IntPtr g);
 
-	[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    internal void SetResolution(object width, object height, int fps)
+    {
+        throw new NotImplementedException();
+    }
+
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
 	extern static private int mray_gst_customImageStreamerSetResolution(System.IntPtr p,int width, int height, int fps);
 
 	GstUnityImageGrabber _grabber;
